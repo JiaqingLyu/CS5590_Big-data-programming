@@ -6,5 +6,5 @@ hdfs dfs -appendToFile '/home/cloudera/Desktop/word_list.txt' /user/shakespare.t
 hadoop fs -cat /user/shakespare.txt|head <br/>
 hadoop fs -tail /user/shakespare.txt 
 # combine into a new file
-hdfs dfs -appendToFile '/home/cloudera/Desktop/shakespare.txt' /user/new.txt <br/>
-hdfs dfs -appendToFile '/home/cloudera/Desktop/word_list.txt' /user/shakespare.txt <br/>
+hdfs dfs -appendToFile '/home/cloudera/Desktop/shakespare.txt' /user/new.txt
+hdfs dfs -appendToFile '/home/cloudera/Desktop/word_list.txt' /user/shakespare.txt 
