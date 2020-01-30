@@ -1,0 +1,10 @@
+# Load the file in hadoop
+hadoop fs -cat '/home/cloudera/Desktop/shakespare.txt'
+# append the second file to the first one
+hdfs dfs -appendToFile '/home/cloudera/Desktop/word_list.txt' /user/shakespare.txt
+# Show head lines and tail lines of the file
+hadoop fs -cat /user/shakespare.txt|head <br/>
+hadoop fs -tail /user/shakespare.txt 
+# combine into a new file
+hdfs dfs -appendToFile '/home/cloudera/Desktop/shakespare.txt' /user/new.txt
+hdfs dfs -appendToFile '/home/cloudera/Desktop/word_list.txt' /user/shakespare.txt 
