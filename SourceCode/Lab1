@@ -1,4 +1,4 @@
-# Load the file in hadoop
+## Load the file in hadoop
 hadoop fs -cat '/home/cloudera/Desktop/shakespare.txt'
 # append the second file to the first one
 hdfs dfs -appendToFile '/home/cloudera/Desktop/word_list.txt' /user/shakespare.txt
