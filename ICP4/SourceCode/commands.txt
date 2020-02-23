@@ -1,0 +1,42 @@
+create table petrol (distributer_id STRING, distributer_name STRING, amt_IN String, amy_OUT STRING, vol_IN INT, vol_OUT INT, year INT) row format delimited fields terminated by ',' stored as textfile;
+
+load data local inpath '/home/cloudera/Desktop/petrol.txt' into table petrol;
+
+SELECT distributer_name, SUM(vol_OUT) FROM petrol GROUP BY distributer_name;
+
+SELECT distributer_id, vol_OUT FROM petrol order by vol_OUT desc limit 10;
+
+SELECT distributer_id FROM petrol;
+
+
+ CREATE table olympic (athelete STRING, age INT, country STRING, year STRING, closing STRING, sport STRING, gold INT, silver INT, bronze INT, total INT) row format delimited fields terminated by '\t' stored as textfile;
+
+load data local inpath'/home/cloudera/Desktop/olympic_data.csv' into table olympic;
+
+select country,SUM(total) from olympic where sport = "Swimming" GROUP BY country;
+
+select year,SUM(total) from olympic where country = "India" GROUP BY year; 
+
+select country,SUM(total) from olympic GROUP BY country;
+
+select country,SUM(gold) from olympic GROUP BY country;
+
+create table movies(movieID INT,title STRING, genres STRING) row format delimited fields terminated by ',' stored as textfile;
+
+ load data local inpath'/home/cloudera/Desktop/movies.csv' into table movies;
+
+select movieID,genres from movies where movieID<2;
+
+create table users(user_id INT, gender STRING, age INT, occupation INT, zip_code STRING) row format delimited fields terminated by ',' stored as textfile; 
+
+create table rating(userID INT, movieID INT, rating STRING, timestamp STRING) row format delimited stored as textfile;
+
+select title,genres from movies where(genres like '%DRAMA' OR genres like 'Action%') limit 10;
+
+
+select movieID from rating where rating=5 limit 10;
+
+
+select m.title,r.rating from movies m JOIN rating r ON (m.movieID=r.movieID) where (m.genres like 'Action%') order by r.rating desc limit 11;
+
+
