@@ -1,0 +1,66 @@
+1.————————————————————————————————
+
+sudo service mysqld start
+
+mysql -u root -pcloudera
+
+create database db1;
+
+Use db1;
+
+create table acad(emp_id INT NOT NULL AUTO_INCREMENT, emp_name VARCHAR(100),emp_sal INT, PRIMARY KEY(emp_id));
+
+insert into acad values(5,"sanam",50000),(6,"opra",600000),(7,"yella",700000);
+
+sqoop import --connect jdbc:mysql://localhost/db1 --username root --password cloudera --table acad --m 1
+
+hadoop fs -ls
+
+hadoop fs -cat acad/*
+
+2.---------------------------------
+
+hive -f tables-schema.hql
+
+(In hive)
+Show tables;
+
+Describe users;
+
+create table emp (empid INT, emp_name STRING) row format delimited fields terminated by ',' lines terminated by '\n' stored as textfile;
+
+ load data inpath 'acad/' into table emp;
+
+Select * from emp;
+
+//easier hive table to mySQL
+
+hadoop fs -ls /user/hive/warehouse/
+
+(In mysql) 
+Use db1;
+
+create table empNew(empid INT,emp_name VARCHAR(100));
+
+(~)
+sqoop export --connect jdbc:mysql://localhost/db1 --username root --password cloudera --table empNew --export-dir /user/hive/warehouse/emp -m 1
+
+(In db1)
+Select * from empNew;
+
+3.-----------------------------------
+create table dividends(date DATE NOT NULL, num VARCHAR(255));
+
+load data infile'/home/cloudera/Desktop/dividends.csv' into table dividends fields terminated by ',' lines terminated by '\n';
+
+//import by Sqoop
+sqoop import --connect jdbc:mysql://localhost/db2 --username root --password cloudera --table dividends --m 1
+
+//into hive
+hive -f tables-schema.hql
+
+create table newI(date DATE, num VARCHAR(255))row format delimited fields terminated by ',' lines terminated by '\n' stored as textfile;
+
+load data inpath 'dividends/' into table newI;
+
+Select num,count(1) as count from newI group by num order by num;
