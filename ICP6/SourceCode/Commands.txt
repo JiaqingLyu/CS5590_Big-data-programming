@@ -1,0 +1,23 @@
+1.
+
+solrctl config --create logs_config predefinedTmplate -p immutable=fale
+
+solrctl instancedir --generate $HOME/logs_config
+
+solrctl collection --create logNew2 -c logs_config
+
+2.
+solrctl instancedir --generate  /tmp/films
+gedit /tmp/films/conf/schema.xml
+
+films：
+
+id[1 To 3]
+directed_by_ss[Gray Lennon]
+directed_by_ss[Louis]
+
+
+
+Books:
+
+solrctl collection --create books -c logs_config
