@@ -1,0 +1,29 @@
+CREATE KEYSPACE KEYSPACENAME WITH REPLICATION = {'class':'SimpleStrategy','replication_factor':3};
+
+use KEYSPACENAME; 
+
+CREATE TABLE employees (
+	employee_id int,
+	department text,
+	lastname text,
+	years_with_company int,
+	date text,
+	title text,
+	salary int,
+	num int,
+	PRIMARY KEY(department, lastname, years_with_company, date, title, salary,num)
+);
+
+COPY employees (employee_id, department, lastname, years_with_company, date, title, salary,num) FROM '/Users/louis_lyu/Desktop/ICP7/employee/employee_entries.csv' WITH HEADER=True AND DELIMITER='|';
+
+select employee_id,lastname,title,date from employees;
+
+select lastname,salary from employees where title = 'clerk'
+
+select lastname,title,salary from employees where date = '2000-02-18';
+
+select lastname,salary from employees;
+
+Bonus
+
+SELECT * FROM employees WHERE department='Engineering' ORDER BY lastname DESC, years_with_company DESC;
